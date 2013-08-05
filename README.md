@@ -1,5 +1,7 @@
 # jQuery Selectorator
 
+[![Build Status](https://travis-ci.org/ngs/jquery-selectorator.png?branch=master)](https://travis-ci.org/ngs/jquery-selectorator)
+
 jQuery plugin that returns simplest selector of elements.
 
 ## Getting Started
@@ -15,7 +17,9 @@ In your web page:
 <script src="dist/selectorator.min.js"></script>
 <script>
 jQuery(function($) {
-  $.awesome(); // "awesome"
+  $("body").on("*", "mouseenter", function(evt){
+  	console.log($(this).getSelector());
+  });
 });
 </script>
 ```
