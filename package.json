@@ -1,6 +1,6 @@
 {
   "name": "jquery-selectorator",
-  "title": "jQuery Selectorator"
+  "title": "jQuery Selectorator",
   "version": "0.1.0",
   "scripts": {
     "test": "grunt qunit"
