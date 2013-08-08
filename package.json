@@ -1,12 +1,17 @@
 {
   "name": "jquery-selectorator",
+  "title": "jQuery Selectorator"
   "version": "0.1.0",
-  "engines": {
-    "node": ">= 0.8.0"
-  },
   "scripts": {
     "test": "grunt qunit"
   },
+  "maintainers": [
+    {
+      "name": "Atsushi Nagase",
+      "email": "a@ngs.io",
+      "url": "http://ngs.io"
+    }
+  ],
   "devDependencies": {
     "grunt-contrib-coffee": "~0.4.0",
     "grunt-contrib-jshint": "~0.6.0",
@@ -18,6 +23,14 @@
     "grunt-notify": "~0.2.7",
     "grunt": "~0.4.1"
   },
+  "bugs": "https://github.com/ngs/jquery-selectorator/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/ngs/jquery-selectorator/blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": ["selector", "jQuery"],
   "repository": {
     "type": "git",
     "url": "https://github.com/ngs/jquery-selectorator.git"
