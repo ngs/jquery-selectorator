@@ -1,6 +1,3 @@
-/*! jQuery Selectorator - v0.1.0 - 2013-08-08
-* https://github.com/ngs/jquery-selectorator
-* Copyright (c) 2013 Atsushi Nagase; Licensed MIT */
 (function() {
 
   (function($) {
