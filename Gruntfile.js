@@ -57,7 +57,19 @@ module.exports = function(grunt) {
         src: ['test/**/*.js']
       },
     },
+    coffee: {
+      compile: {
+        files: {
+          'src/<%= pkg.name %>.js':       'src/<%= pkg.name %>.coffee',
+          'test/<%= pkg.name %>_test.js': 'test/<%= pkg.name %>_test.coffee'
+        }
+      }
+    },
     watch: {
+      coffee: {
+        files: ['src/<%= pkg.name %>.coffee', 'test/<%= pkg.name %>_test.coffee'],
+        tasks: ['coffee']
+      },
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['jshint:gruntfile']
@@ -80,8 +92,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-notify');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('default', ['coffee', 'jshint', 'qunit', 'clean', 'concat', 'uglify']);
 
 };
