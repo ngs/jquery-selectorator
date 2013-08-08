@@ -125,6 +125,8 @@
     deepEqual fdiv().find("canvas").selectorator().generate(), ["canvas"]
     deepEqual fdiv().find("[id='dup']:eq(0)").selectorator().generate(), ["#duplcate-test > span:eq(0)"]
     deepEqual fdiv().find("[id='dup']:eq(1)").selectorator().generate(), ["#duplcate-test > span:eq(1)"]
+    deepEqual fdiv().find("[name='dup1']:eq(0)").selectorator().generate(), ["#duplcate-test > a:eq(0)"]
+    deepEqual fdiv().find("[name='dup1']:eq(1)").selectorator().generate(), ["#duplcate-test > a:eq(1)"]
     ok $("#test-list li:eq(0)").is(".list1 > li:eq(0)")
     ok $("#test-list li:eq(1)").is(".list1 > li:eq(1)")
     ok $("#test-list li:eq(2)").is(".yahoo-item")
