@@ -5,30 +5,41 @@
 jQuery plugin that returns simplest selector of elements.
 
 ## Getting Started
-Download the [production version][min] or the [development version][max].
-
-[min]: https://raw.github.com/ngs/jquery-selectorator/master/dist/selectorator.min.js
-[max]: https://raw.github.com/ngs/jquery-selectorator/master/dist/selectorator.js
-
-In your web page:
-
 ```html
 <script src="jquery.js"></script>
 <script src="dist/selectorator.min.js"></script>
-<script>
-jQuery(function($) {
-  $("body").on("*", "mouseenter", function(evt){
-  	console.log($(this).getSelector());
-  });
-});
-</script>
 ```
 
 ## Documentation
-_(Coming soon)_
+### `jQuery.fn.getSelector(options = {})`
+
+Returns an array of simplest selectors of the element.
+
+### `jQuery.fn.selectorator(options = {})`
+
+Returns Selectorator instance.
+
+### `options.invalidClasses = []`
+
+Array of CSS classes to ignore from generated selectors.
 
 ## Examples
-_(Coming soon)_
+```javascript
+$("a").on("click", function(){
+  alert($(this).getSelector().join("\n"));
+  return false;
+});
+```
 
-## Release History
-_(Nothing yet)_
+## Testing
+```bash
+$ npm install
+$ grunt qunit
+```
+
+## Author
+
+* Atsushi Nagase (http://ngs.io/)
+
+## License
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
