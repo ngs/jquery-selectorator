@@ -17,5 +17,9 @@
     "grunt-contrib-clean": "~0.4.0",
     "grunt-notify": "~0.2.7",
     "grunt": "~0.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngs/jquery-selectorator.git"
   }
 }

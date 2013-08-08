@@ -1,8 +1,8 @@
 # jQuery Selectorator
 
-[![Build Status](https://travis-ci.org/ngs/jquery-selectorator.png?branch=master)](https://travis-ci.org/ngs/jquery-selectorator)
-
 jQuery plugin that returns simplest selector of elements.
+
+[![Build Status](https://travis-ci.org/ngs/jquery-selectorator.png?branch=master)](https://travis-ci.org/ngs/jquery-selectorator)
 
 ## Getting Started
 ```html
