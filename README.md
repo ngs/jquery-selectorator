@@ -19,9 +19,13 @@ Returns an array of simplest selectors of the element.
 
 Returns Selectorator instance.
 
+### `jQuery.seletortor.options = []`
+Default options.
+
 ### `options.invalidClasses = []`
 
 Array of CSS classes to ignore from generated selectors.
+
 
 ## Examples
 ```javascript
@@ -34,7 +38,7 @@ $("a").on("click", function(){
 ## Testing
 ```bash
 $ npm install
-$ grunt qunit
+$ npm test
 ```
 
 ## Author

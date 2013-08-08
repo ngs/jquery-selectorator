@@ -100,7 +100,7 @@
     deepEqual fdiv().find("#test-list a:eq(1)").selectorator().generateAncestor(),
       ["#link-microsoft", "#link-microsoft", "#link-microsoft", "#link-microsoft", "#link-microsoft", "#link-microsoft"]
     deepEqual fdiv().find("#test-list a:eq(2)").selectorator().generateAncestor(),
-      [".link-yahoo", ".link-yahoo", ".link-yahoo", ".link-yahoo", ".link-yahoo", ".link-yahoo"]
+      [".link-yahoo", ".link-yahoo", ".link-yahoo", ".link-yahoo", ".link-yahoo", ".link-yahoo", ".link-yahoo"]
     deepEqual fdiv().find("#test-list a:eq(3)").selectorator().generateAncestor(),
       ["a[name='google']", "a[name='google']", "a[name='google']", "a[name='google']", "a[name='google']", "a[name='google']"]
 
@@ -108,20 +108,34 @@
     deepEqual fdiv().find("#test-list").selectorator().generateRecursive(), ["#qunit-fixture > div:eq(0)"]
     deepEqual fdiv().find("#test-list a:eq(0)").selectorator().generateRecursive(), [".list1 > li:eq(0) > a:eq(0)"]
     deepEqual fdiv().find("#test-list a:eq(1)").selectorator().generateRecursive(), [".list1 > li:eq(1) > a:eq(0)"]
-    deepEqual fdiv().find("#test-list a:eq(2)").selectorator().generateRecursive(), [".list1 > li:eq(2) > a:eq(0)"]
+    deepEqual fdiv().find("#test-list a:eq(2)").selectorator().generateRecursive(), [".yahoo-item > a:eq(0)"]
     deepEqual fdiv().find("#test-list a:eq(3)").selectorator().generateRecursive(), [".list1 > li:eq(3) > a:eq(0)"]
 
   test '#generate', ->
     deepEqual fdiv().find("#test-list").selectorator().generate(), ["#test-list"]
+    deepEqual fdiv().find("#test-list li:eq(0)").selectorator().generate(), [".list1 > li:eq(0)"]
+    deepEqual fdiv().find("#test-list li:eq(1)").selectorator().generate(), [".list1 > li:eq(1)"]
+    deepEqual fdiv().find("#test-list li:eq(2)").selectorator().generate(), [".yahoo-item"]
+    deepEqual fdiv().find("#test-list li:eq(3)").selectorator().generate(), [".list1 > li:eq(3)"]
+    deepEqual fdiv().find("#test-list a:eq(0)").selectorator().generate(), [".list1 > li:eq(0) > a:eq(0)"]
     deepEqual fdiv().find("#test-list a:eq(0)").selectorator().generate(), [".list1 > li:eq(0) > a:eq(0)"]
     deepEqual fdiv().find("#test-list a:eq(1)").selectorator().generate(), ["#link-microsoft"]
     deepEqual fdiv().find("#test-list a:eq(2)").selectorator().generate(), [".link-yahoo"]
     deepEqual fdiv().find("#test-list a:eq(3)").selectorator().generate(), ["a[name='google']"]
+    deepEqual fdiv().find("canvas").selectorator().generate(), ["canvas"]
+    deepEqual fdiv().find("[id='dup']:eq(0)").selectorator().generate(), ["#duplcate-test > span:eq(0)"]
+    deepEqual fdiv().find("[id='dup']:eq(1)").selectorator().generate(), ["#duplcate-test > span:eq(1)"]
+    ok $("#test-list li:eq(0)").is(".list1 > li:eq(0)")
+    ok $("#test-list li:eq(1)").is(".list1 > li:eq(1)")
+    ok $("#test-list li:eq(2)").is(".yahoo-item")
+    ok $("#test-list li:eq(3)").is(".list1 > li:eq(3)")
 
   test 'all elements', ->
-    $("*").each ->
-      selectors = $(@).selectorator().generate()
+    fdiv().find("*").each ->
+      self = $(@)
+      selectors = self.selectorator().generate()
       $.each selectors, ->
         equal $("#{@}").size(), 1, "size of selector #{@} should be 1"
+        ok $("#{@}").is(self[0]), "#{self[0]}: #{@} .is #{self.is("#{@}")} of #{selectors.length} #{self.getSelector()}"
 
 ) jQuery

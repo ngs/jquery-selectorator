@@ -8,8 +8,9 @@
 (($) ->
 
   # console = window.console
-  map = $.map
-  extend = $.extend
+  map     = $.map
+  extend  = $.extend
+  inArray = $.inArray
 
   escapeSelector = (selector)->
     selector.replace /([\!\"\#\$\%\&'\(\)\*\+\,\.\/\:\;<\=>\?\@\[\\\]\^\`\{\|\}\~])/g, "\\$1"
@@ -29,7 +30,7 @@
       @cachedResults = {}
 
     query: (selector)->
-      @cachedResults[selector] ||= $(selector)
+      @cachedResults[selector] ||= $(selector.replace(/#([^\s]+)/g, "[id='$1']"))
 
     getProperTagName: ->
       if @element[0] then @element[0].tagName.toLowerCase() else null
@@ -43,7 +44,7 @@
           element = @query selector
           return null if single && 1 < element.size() || !single && 0 == element.size()
         else return null
-      if $.inArray(@element[0], element.get()) != -1 then selector else null
+      if inArray(@element[0], element.get()) != -1 then selector else null
 
     generate: ->
       element = @element
@@ -51,7 +52,7 @@
         return ['']
       res = []
       for fn in [@generateSimple, @generateAncestor, @generateRecursive]
-        res = clean fn.call @
+        res = unique clean fn.call @
         return res if res && res.length > 0
       unique res
 
@@ -68,18 +69,18 @@
       results
 
     generateSimple: (parentSelector, single, isFirst)->
-      tagName = @getProperTagName()
       self = @
+      tagName = self.getProperTagName()
       validate = (selector)-> self.validate selector, parentSelector, single, isFirst
       for fn in [
-        [@getIdSelector              ],
-        [@getClassSelector           ],
-        [@getIdSelector,          yes],
-        [@getClassSelector,       yes],
-        [@getNameSelector            ],
+        [self.getIdSelector          ],
+        [self.getClassSelector       ],
+        [self.getIdSelector,      yes],
+        [self.getClassSelector,   yes],
+        [self.getNameSelector        ],
         [-> [self.getProperTagName()]]
       ]
-        res = fn[0].call(@, fn[1]) || []
+        res = fn[0].call(self, fn[1]) || []
         res = clean map(res, validate)
         return res if res.length > 0
       []
@@ -108,7 +109,7 @@
       invalidClasses = @options.invalidClasses || []
       classes = (@element.attr('class')||'').replace(/\{.*\}/, "").split(/\s/)
       map classes, (klazz)->
-        if klazz && $.inArray(klazz, invalidClasses) == -1
+        if klazz && inArray(klazz, invalidClasses) == -1
           "#{tagName}.#{escapeSelector(klazz)}"
         else null
 
@@ -132,7 +133,7 @@
     new Selectorator($(@), options)
 
   $.fn.getSelector = (options)->
-    $(@).selectorator(options).generate()
+    @selectorator(options).generate()
 
   @
 ) jQuery
