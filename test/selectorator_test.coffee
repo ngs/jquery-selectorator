@@ -136,6 +136,6 @@
       selectors = self.selectorator().generate()
       $.each selectors, ->
         equal $("#{@}").size(), 1, "size of selector #{@} should be 1"
-        ok $("#{@}").is(self[0]), "#{self[0]}: #{@} .is #{self.is("#{@}")} of #{selectors.length} #{self.getSelector()}"
+        ok $("#{@}").is(self[0]), "#{self[0]}: #{@} is #{self.is("#{@}")} of #{selectors.length}"
 
 ) jQuery

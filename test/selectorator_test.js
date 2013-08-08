@@ -143,7 +143,7 @@
         selectors = self.selectorator().generate();
         return $.each(selectors, function() {
           equal($("" + this).size(), 1, "size of selector " + this + " should be 1");
-          return ok($("" + this).is(self[0]), "" + self[0] + ": " + this + " .is " + (self.is("" + this)) + " of " + selectors.length + " " + (self.getSelector()));
+          return ok($("" + this).is(self[0]), "" + self[0] + ": " + this + " is " + (self.is("" + this)) + " of " + selectors.length);
         });
       });
     });

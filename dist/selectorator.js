@@ -1,12 +1,13 @@
-/*! jQuery Selectorator - v0.1.0 - 2013-08-08
+/*! jQuery Selectorator - v0.1.1 - 2013-08-09
 * https://github.com/ngs/jquery-selectorator
 * Copyright (c) 2013 Atsushi Nagase; Licensed MIT */
 (function() {
 
   (function($) {
-    var Selectorator, clean, escapeSelector, extend, map, unique;
+    var Selectorator, clean, escapeSelector, extend, inArray, map, unique;
     map = $.map;
     extend = $.extend;
+    inArray = $.inArray;
     escapeSelector = function(selector) {
       return selector.replace(/([\!\"\#\$\%\&'\(\)\*\+\,\.\/\:\;<\=>\?\@\[\\\]\^\`\{\|\}\~])/g, "\\$1");
     };
@@ -38,7 +39,7 @@
 
       Selectorator.prototype.query = function(selector) {
         var _base;
-        return (_base = this.cachedResults)[selector] || (_base[selector] = $(selector));
+        return (_base = this.cachedResults)[selector] || (_base[selector] = $(selector.replace(/#([^\s]+)/g, "[id='$1']")));
       };
 
       Selectorator.prototype.getProperTagName = function() {
@@ -70,7 +71,7 @@
             return null;
           }
         }
-        if ($.inArray(this.element[0], element.get()) !== -1) {
+        if (inArray(this.element[0], element.get()) !== -1) {
           return selector;
         } else {
           return null;
@@ -87,7 +88,7 @@
         _ref = [this.generateSimple, this.generateAncestor, this.generateRecursive];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           fn = _ref[_i];
-          res = clean(fn.call(this));
+          res = unique(clean(fn.call(this)));
           if (res && res.length > 0) {
             return res;
           }
@@ -118,13 +119,13 @@
 
       Selectorator.prototype.generateSimple = function(parentSelector, single, isFirst) {
         var fn, res, self, tagName, validate, _i, _len, _ref;
-        tagName = this.getProperTagName();
         self = this;
+        tagName = self.getProperTagName();
         validate = function(selector) {
           return self.validate(selector, parentSelector, single, isFirst);
         };
         _ref = [
-          [this.getIdSelector], [this.getClassSelector], [this.getIdSelector, true], [this.getClassSelector, true], [this.getNameSelector], [
+          [self.getIdSelector], [self.getClassSelector], [self.getIdSelector, true], [self.getClassSelector, true], [self.getNameSelector], [
             function() {
               return [self.getProperTagName()];
             }
@@ -132,7 +133,7 @@
         ];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           fn = _ref[_i];
-          res = fn[0].call(this, fn[1]) || [];
+          res = fn[0].call(self, fn[1]) || [];
           res = clean(map(res, validate));
           if (res.length > 0) {
             return res;
@@ -184,7 +185,7 @@
         invalidClasses = this.options.invalidClasses || [];
         classes = (this.element.attr('class') || '').replace(/\{.*\}/, "").split(/\s/);
         return map(classes, function(klazz) {
-          if (klazz && $.inArray(klazz, invalidClasses) === -1) {
+          if (klazz && inArray(klazz, invalidClasses) === -1) {
             return "" + tagName + "." + (escapeSelector(klazz));
           } else {
             return null;
@@ -216,7 +217,7 @@
       return new Selectorator($(this), options);
     };
     $.fn.getSelector = function(options) {
-      return $(this).selectorator(options).generate();
+      return this.selectorator(options).generate();
     };
     return this;
   })(jQuery);
