@@ -64,7 +64,7 @@
         for selector in selectors
           parentSelectors = new Selectorator($(parent), @options).generateSimple(null, no)
           for parentSelector in parentSelectors
-            $.merge results, new Selectorator($(selector), @options).generateSimple(parentSelector, yes, isFirst)
+            $.merge results, @generateSimple(parentSelector, yes, isFirst)
         isFirst = no
       results
 

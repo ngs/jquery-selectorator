@@ -106,7 +106,7 @@
             parentSelectors = new Selectorator($(parent), this.options).generateSimple(null, false);
             for (_k = 0, _len2 = parentSelectors.length; _k < _len2; _k++) {
               parentSelector = parentSelectors[_k];
-              $.merge(results, new Selectorator($(selector), this.options).generateSimple(parentSelector, true, isFirst));
+              $.merge(results, this.generateSimple(parentSelector, true, isFirst));
             }
           }
           isFirst = false;
