@@ -134,7 +134,13 @@
       deepEqual(fdiv().find("[id='dup']:eq(1)").selectorator().generate(), ["#duplcate-test > span:eq(1)"]);
       deepEqual(fdiv().find("[name='dup1']:eq(0)").selectorator().generate(), ["#duplcate-test > a:eq(0)"]);
       deepEqual(fdiv().find("[name='dup1']:eq(1)").selectorator().generate(), ["#duplcate-test > a:eq(1)"]);
+      deepEqual(fdiv().find("#test-nested p:eq(0)").selectorator().generate(), ["#test-nested > .body-copy > p:eq(0)"]);
+      deepEqual(fdiv().find("#test-nested p:eq(1)").selectorator().generate(), ["#test-nested > .body-copy > p:eq(1)"]);
+      deepEqual(fdiv().find("#test-nested p:eq(2)").selectorator().generate(), ["#test-nested > .body-copy > p:eq(2)"]);
+      deepEqual(fdiv().find("#test-nested p:eq(3)").selectorator().generate(), [".body-copy > .body-copy > p:eq(0)"]);
+      deepEqual(fdiv().find("#test-nested p:eq(4)").selectorator().generate(), [".body-copy > .body-copy > p:eq(1)"]);
       deepEqual(fdiv().find("#test-nested p:eq(5)").selectorator().generate(), [".body-copy > .body-copy > p:eq(2)"]);
+      equal($(".body-copy > .body-copy > p:eq(2)").html(), 'F');
       ok($("#test-list li:eq(0)").is(".list1 > li:eq(0)"));
       ok($("#test-list li:eq(1)").is(".list1 > li:eq(1)"));
       ok($("#test-list li:eq(2)").is(".yahoo-item"));
@@ -146,7 +152,8 @@
         self = $(this);
         selectors = self.selectorator().generate();
         return $.each(selectors, function() {
-          return equal($("" + this).size(), 1, "size of selector " + this + " should be 1");
+          equal($("" + this).size(), 1, "size of selector " + this + " should be 1");
+          return ok($("" + this).is(self[0]), "" + self[0] + ": " + this + " is " + (self.is("" + this)) + " of " + selectors.length);
         });
       });
     });
