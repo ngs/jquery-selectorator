@@ -2,9 +2,12 @@
   "name": "jquery-selectorator",
   "title": "jQuery Selectorator",
   "version": "0.1.1",
+  "author": "Atsushi Nagase <a@ngs.io> (http://ngs.io)",
   "scripts": {
     "test": "grunt qunit"
   },
+  "description": "jQuery plugin that returns simplest selector of elements.",
+  "homepage": "https://github.com/ngs/jquery-selectorator",
   "maintainers": [
     {
       "name": "Atsushi Nagase",
@@ -22,6 +25,9 @@
     "grunt-contrib-clean": "~0.4.0",
     "grunt-notify": "~0.2.7",
     "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "jquery": ">=1.8.0"
   },
   "bugs": "https://github.com/ngs/jquery-selectorator/issues",
   "licenses": [
