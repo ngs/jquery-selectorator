@@ -168,7 +168,7 @@
         }
         tagName = tagName ? this.getProperTagName() : '';
         id = this.element.attr('id');
-        if (typeof id === "string" && !contains(id, this.getIgnore('ids'))) {
+        if (typeof id === "string" && !contains(id, this.getIgnore('id'))) {
           return ["" + tagName + "#" + (escapeSelector(id))];
         } else {
           return null;
@@ -185,7 +185,7 @@
           return null;
         }
         tagName = tagName ? tn : '';
-        invalidClasses = this.getIgnore('classes');
+        invalidClasses = this.getIgnore('class');
         classes = (this.element.attr('class') || '').replace(/\{.*\}/, "").split(/\s/);
         return map(classes, function(klazz) {
           if (klazz && !contains(klazz, invalidClasses)) {
@@ -200,7 +200,7 @@
         var name, tagName;
         tagName = this.getProperTagName();
         name = this.element.attr('name');
-        if (name && !contains(name, this.getIgnore('names'))) {
+        if (name && !contains(name, this.getIgnore('name'))) {
           return ["" + tagName + "[name='" + name + "']"];
         } else {
           return null;
@@ -208,8 +208,10 @@
       };
 
       Selectorator.prototype.getIgnore = function(key) {
-        var vals;
-        vals = (this.options.ignore || {})[key];
+        var mulkey, opts, vals;
+        opts = this.options.ignore || {};
+        mulkey = key === 'class' ? 'classes' : "" + key + "s";
+        vals = opts[key] || opts[mulkey];
         if (typeof vals === 'string') {
           return [vals];
         } else {
