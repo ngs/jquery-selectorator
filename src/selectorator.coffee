@@ -12,6 +12,9 @@
   extend  = $.extend
   inArray = $.inArray
 
+  contains = (item, array)->
+    inArray(item, array) != -1
+
   escapeSelector = (selector)->
     selector.replace /([\!\"\#\$\%\&'\(\)\*\+\,\.\/\:\;<\=>\?\@\[\\\]\^\`\{\|\}\~])/g, "\\$1"
 
@@ -44,7 +47,7 @@
           element = @query selector
           return null if single && 1 < element.size() || !single && 0 == element.size()
         else return null
-      if inArray(@element[0], element.get()) != -1 then selector else null
+      if contains(@element[0], element.get()) then selector else null
 
     generate: ->
       element = @element
@@ -98,7 +101,7 @@
     getIdSelector: (tagName = no)->
       tagName = if tagName then @getProperTagName() else ''
       id = @element.attr 'id'
-      if typeof id is "string"
+      if typeof id is "string" && !contains(id, @getIgnore('id'))
         ["#{tagName}##{escapeSelector(id)}"]
       else null
 
@@ -106,20 +109,25 @@
       tn = @getProperTagName()
       return null if /^(body|html)$/.test tn
       tagName = if tagName then tn else ''
-      invalidClasses = @options.invalidClasses || []
+      invalidClasses = @getIgnore 'class'
       classes = (@element.attr('class')||'').replace(/\{.*\}/, "").split(/\s/)
       map classes, (klazz)->
-        if klazz && inArray(klazz, invalidClasses) == -1
+        if klazz && !contains(klazz, invalidClasses)
           "#{tagName}.#{escapeSelector(klazz)}"
         else null
 
     getNameSelector: ->
       tagName = @getProperTagName()
       name = @element.attr('name')
-      if name
+      if name && !contains(name, @getIgnore('name'))
         ["#{tagName}[name='#{name}']"]
       else null
 
+    getIgnore: (key)->
+      opts = @options.ignore || {}
+      mulkey = if key is 'class' then 'classes' else "#{key}s"
+      vals = opts[key] || opts[mulkey]
+      if typeof vals is 'string' then [vals] else vals
 
   #----------------------------------------------
 

@@ -22,10 +22,14 @@ Returns Selectorator instance.
 ### `jQuery.seletortor.options = []`
 Default options.
 
-### `options.invalidClasses = []`
+### `options.ignore.classes = []`
+### `options.ignore.names = []`
+### `options.ignore.ids = []`
+### `options.ignore.class = ''`
+### `options.ignore.name = ''`
+### `options.ignore.id = ''`
 
-Array of CSS classes to ignore from generated selectors.
-
+String or Array of values to ignore from generated selectors.
 
 ## Examples
 ```javascript

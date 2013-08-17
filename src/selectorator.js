@@ -1,10 +1,13 @@
 (function() {
 
   (function($) {
-    var Selectorator, clean, escapeSelector, extend, inArray, map, unique;
+    var Selectorator, clean, contains, escapeSelector, extend, inArray, map, unique;
     map = $.map;
     extend = $.extend;
     inArray = $.inArray;
+    contains = function(item, array) {
+      return inArray(item, array) !== -1;
+    };
     escapeSelector = function(selector) {
       return selector.replace(/([\!\"\#\$\%\&'\(\)\*\+\,\.\/\:\;<\=>\?\@\[\\\]\^\`\{\|\}\~])/g, "\\$1");
     };
@@ -68,7 +71,7 @@
             return null;
           }
         }
-        if (inArray(this.element[0], element.get()) !== -1) {
+        if (contains(this.element[0], element.get())) {
           return selector;
         } else {
           return null;
@@ -162,7 +165,7 @@
         }
         tagName = tagName ? this.getProperTagName() : '';
         id = this.element.attr('id');
-        if (typeof id === "string") {
+        if (typeof id === "string" && !contains(id, this.getIgnore('id'))) {
           return ["" + tagName + "#" + (escapeSelector(id))];
         } else {
           return null;
@@ -179,10 +182,10 @@
           return null;
         }
         tagName = tagName ? tn : '';
-        invalidClasses = this.options.invalidClasses || [];
+        invalidClasses = this.getIgnore('class');
         classes = (this.element.attr('class') || '').replace(/\{.*\}/, "").split(/\s/);
         return map(classes, function(klazz) {
-          if (klazz && inArray(klazz, invalidClasses) === -1) {
+          if (klazz && !contains(klazz, invalidClasses)) {
             return "" + tagName + "." + (escapeSelector(klazz));
           } else {
             return null;
@@ -194,10 +197,22 @@
         var name, tagName;
         tagName = this.getProperTagName();
         name = this.element.attr('name');
-        if (name) {
+        if (name && !contains(name, this.getIgnore('name'))) {
           return ["" + tagName + "[name='" + name + "']"];
         } else {
           return null;
+        }
+      };
+
+      Selectorator.prototype.getIgnore = function(key) {
+        var mulkey, opts, vals;
+        opts = this.options.ignore || {};
+        mulkey = key === 'class' ? 'classes' : "" + key + "s";
+        vals = opts[key] || opts[mulkey];
+        if (typeof vals === 'string') {
+          return [vals];
+        } else {
+          return vals;
         }
       };
 
