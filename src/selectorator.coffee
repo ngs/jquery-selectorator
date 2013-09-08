@@ -38,6 +38,13 @@
     getProperTagName: ->
       if @element[0] then @element[0].tagName.toLowerCase() else null
 
+    hasParent: ->
+      @element && 0 < @element.parent().size()
+
+    isElement: ->
+      node = @element[0]
+      node && node.nodeType == node.ELEMENT_NODE
+
     validate: (selector, parentSelector, single = yes, isFirst = no)->
       element = @query selector
       if single && 1 < element.size() || !single && 0 == element.size()
@@ -50,8 +57,7 @@
       if contains(@element[0], element.get()) then selector else null
 
     generate: ->
-      element = @element
-      if (!element || element[0] == document || "undefined" == typeof element[0].tagName)
+      unless @element && @hasParent() && @isElement()
         return ['']
       res = []
       for fn in [@generateSimple, @generateAncestor, @generateRecursive]

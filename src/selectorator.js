@@ -50,6 +50,16 @@
         }
       };
 
+      Selectorator.prototype.hasParent = function() {
+        return this.element && 0 < this.element.parent().size();
+      };
+
+      Selectorator.prototype.isElement = function() {
+        var node;
+        node = this.element[0];
+        return node && node.nodeType === node.ELEMENT_NODE;
+      };
+
       Selectorator.prototype.validate = function(selector, parentSelector, single, isFirst) {
         var delimiter, element;
         if (single == null) {
@@ -79,9 +89,8 @@
       };
 
       Selectorator.prototype.generate = function() {
-        var element, fn, res, _i, _len, _ref;
-        element = this.element;
-        if (!element || element[0] === document || "undefined" === typeof element[0].tagName) {
+        var fn, res, _i, _len, _ref;
+        if (!(this.element && this.hasParent() && this.isElement())) {
           return [''];
         }
         res = [];
