@@ -24,7 +24,8 @@
 
   unique = (arr)->
     map arr, (item, index)->
-      if index == arr.indexOf(item) then item else null
+      if parseInt(index, 10) == parseInt(arr.indexOf(item), 10) then item
+      else null
 
   class Selectorator
     constructor: (element, options)->

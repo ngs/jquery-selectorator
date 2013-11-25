@@ -22,7 +22,7 @@
     };
     unique = function(arr) {
       return map(arr, function(item, index) {
-        if (index === arr.indexOf(item)) {
+        if (parseInt(index, 10) === parseInt(arr.indexOf(item), 10)) {
           return item;
         } else {
           return null;

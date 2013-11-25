@@ -1,4 +1,4 @@
-/*! jQuery Selectorator - v0.1.3 - 2013-08-18
+/*! jQuery Selectorator - v0.1.3 - 2013-11-25
 * https://github.com/ngs/jquery-selectorator
 * Copyright (c) 2013 Atsushi Nagase; Licensed MIT */
 (function() {
@@ -25,7 +25,7 @@
     };
     unique = function(arr) {
       return map(arr, function(item, index) {
-        if (index === arr.indexOf(item)) {
+        if (parseInt(index, 10) === parseInt(arr.indexOf(item), 10)) {
           return item;
         } else {
           return null;
@@ -51,6 +51,16 @@
         } else {
           return null;
         }
+      };
+
+      Selectorator.prototype.hasParent = function() {
+        return this.element && 0 < this.element.parent().size();
+      };
+
+      Selectorator.prototype.isElement = function() {
+        var node;
+        node = this.element[0];
+        return node && node.nodeType === node.ELEMENT_NODE;
       };
 
       Selectorator.prototype.validate = function(selector, parentSelector, single, isFirst) {
@@ -82,9 +92,8 @@
       };
 
       Selectorator.prototype.generate = function() {
-        var element, fn, res, _i, _len, _ref;
-        element = this.element;
-        if (!element || element[0] === document || "undefined" === typeof element[0].tagName) {
+        var fn, res, _i, _len, _ref;
+        if (!(this.element && this.hasParent() && this.isElement())) {
           return [''];
         }
         res = [];
