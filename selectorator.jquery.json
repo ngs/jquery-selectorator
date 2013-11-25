@@ -2,7 +2,7 @@
   "name": "selectorator",
   "title": "jQuery Selectorator",
   "description": "jQuery plugin that returns simplest selector of elements.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/ngs/jquery-selectorator",
   "author": {
     "name": "Atsushi Nagase",
