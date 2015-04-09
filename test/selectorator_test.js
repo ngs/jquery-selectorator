@@ -1,5 +1,4 @@
 (function() {
-
   (function($) {
     var console, fdiv, fixtureHTML;
     console = window.console;
