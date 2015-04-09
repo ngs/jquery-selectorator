@@ -1,4 +1,4 @@
-/*! jQuery Selectorator - v0.1.4 - 2015-04-10
+/*! jQuery Selectorator - v0.1.5 - 2015-04-10
 * https://github.com/ngs/jquery-selectorator
 * Copyright (c) 2015 Atsushi Nagase; Licensed MIT */
 (function() {
