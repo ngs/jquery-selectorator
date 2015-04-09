@@ -152,6 +152,10 @@
     ok $("#test-list li:eq(2)").is(".yahoo-item")
     ok $("#test-list li:eq(3)").is(".list1 > li:eq(3)")
 
+  test 'empty attributes', ->
+    equal fdiv().find('#test-empty-attributes p:eq(0)').selectorator().generate(), '#test-empty-attributes > p:eq(0)'
+    equal fdiv().find('#test-empty-attributes p:eq(1)').selectorator().generate(), '#test-empty-attributes > p:eq(1)'
+
   test 'all elements', ->
     fdiv().find("*").each ->
       self = $(@)

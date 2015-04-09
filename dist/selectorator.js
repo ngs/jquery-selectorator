@@ -1,6 +1,6 @@
-/*! jQuery Selectorator - v0.1.4 - 2013-11-25
+/*! jQuery Selectorator - v0.1.4 - 2015-04-10
 * https://github.com/ngs/jquery-selectorator
-* Copyright (c) 2013 Atsushi Nagase; Licensed MIT */
+* Copyright (c) 2015 Atsushi Nagase; Licensed MIT */
 (function() {
 
   (function($) {
@@ -177,7 +177,7 @@
         }
         tagName = tagName ? this.getProperTagName() : '';
         id = this.element.attr('id');
-        if (typeof id === "string" && !contains(id, this.getIgnore('id'))) {
+        if (typeof id === "string" && !contains(id, this.getIgnore('id')) && id !== '') {
           return ["" + tagName + "#" + (escapeSelector(id))];
         } else {
           return null;

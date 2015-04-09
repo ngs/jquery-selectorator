@@ -174,7 +174,7 @@
         }
         tagName = tagName ? this.getProperTagName() : '';
         id = this.element.attr('id');
-        if (typeof id === "string" && !contains(id, this.getIgnore('id'))) {
+        if (typeof id === "string" && !contains(id, this.getIgnore('id')) && id !== '') {
           return ["" + tagName + "#" + (escapeSelector(id))];
         } else {
           return null;

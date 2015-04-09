@@ -197,6 +197,10 @@
       ok($("#test-list li:eq(2)").is(".yahoo-item"));
       return ok($("#test-list li:eq(3)").is(".list1 > li:eq(3)"));
     });
+    test('empty attributes', function() {
+      equal(fdiv().find('#test-empty-attributes p:eq(0)').selectorator().generate(), '#test-empty-attributes > p:eq(0)');
+      return equal(fdiv().find('#test-empty-attributes p:eq(1)').selectorator().generate(), '#test-empty-attributes > p:eq(1)');
+    });
     return test('all elements', function() {
       return fdiv().find("*").each(function() {
         var selectors, self;
