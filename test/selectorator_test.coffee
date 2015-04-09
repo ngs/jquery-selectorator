@@ -69,32 +69,24 @@
     equal $('<div id="foo" />').selectorator( ignore: id:  'foo' ).getIdSelector(), null, 'should ignore id'
 
   test '#getClassSelector', ->
-    deepEqual $('<div id="foo" />')
-      .selectorator().getClassSelector(), [],
-      'should return an empty array'
-    deepEqual $('<div class="foo" />')
-      .selectorator().getClassSelector(), ['.foo'],
-      'should return an array of 1 selector'
-    deepEqual $('<div class="bar foo" />')
-      .selectorator().getClassSelector(), ['.bar', '.foo'],
-      'should return an array of 2 selectors'
-    deepEqual $('<div class="bar foo baz bar~" />')
-      .selectorator( ignore: class: ['qux', 'baz', 'bar'] ).getClassSelector(), ['.foo', '.bar\\~'],
-      'should reject invalidClasses'
-    deepEqual $('<div class="bar foo baz bar~" />')
-      .selectorator( ignore: class: ['bar~'] ).getClassSelector(), ['.bar', '.foo', '.baz'],
-      'should reject invalidClasses'
-    deepEqual $('<div class="bar foo baz bar~" />')
-      .selectorator( ignore: classes: ['qux', 'baz', 'bar'] ).getClassSelector(), ['.foo', '.bar\\~'],
-      'should reject invalidClasses'
-    deepEqual $('<div class="bar foo baz bar~" />')
-      .selectorator( ignore: classes: ['bar~'] ).getClassSelector(), ['.bar', '.foo', '.baz'],
-      'should reject invalidClasses'
+    deepEqual $('<div id="foo" />').selectorator().getClassSelector(),
+      [], 'should return an empty array'
+    deepEqual $('<div class="foo" />').selectorator().getClassSelector(),
+      ['.foo'], 'should return an array of 1 selector'
+    deepEqual $('<div class="bar foo" />').selectorator().getClassSelector(),
+      ['.bar', '.foo'], 'should return an array of 2 selectors'
+    deepEqual $('<div class="bar foo baz bar~" />').selectorator( ignore: class: ['qux', 'baz', 'bar'] ).getClassSelector(),
+      ['.foo', '.bar\\~'], 'should reject invalidClasses'
+    deepEqual $('<div class="bar foo baz bar~" />').selectorator( ignore: class: ['bar~'] ).getClassSelector(),
+      ['.bar', '.foo', '.baz'], 'should reject invalidClasses'
+    deepEqual $('<div class="bar foo baz bar~" />').selectorator( ignore: classes: ['qux', 'baz', 'bar'] ).getClassSelector(),
+      ['.foo', '.bar\\~'], 'should reject invalidClasses'
+    deepEqual $('<div class="bar foo baz bar~" />').selectorator( ignore: classes: ['bar~'] ).getClassSelector(),
+      ['.bar', '.foo', '.baz'], 'should reject invalidClasses'
     equal $('body').selectorator().getClassSelector(), null, 'should return null for body element'
     equal $('html').selectorator().getClassSelector(), null, 'should return null for html element'
-    deepEqual $('<div class="bar foo" />')
-      .selectorator().getClassSelector(true), ['div.bar', 'div.foo'],
-      'should return an array of 2 selectors with tag name'
+    deepEqual $('<div class="bar foo" />').selectorator().getClassSelector(true),
+      ['div.bar', 'div.foo'], 'should return an array of 2 selectors with tag name'
 
   test '#getNameSelector', ->
     deepEqual $('<a name="foo">Yay</a>').selectorator().getNameSelector(), ["a[name='foo']"], 'should return selector'
@@ -151,6 +143,10 @@
     ok $("#test-list li:eq(1)").is(".list1 > li:eq(1)")
     ok $("#test-list li:eq(2)").is(".yahoo-item")
     ok $("#test-list li:eq(3)").is(".list1 > li:eq(3)")
+
+  test 'empty attributes', ->
+    equal fdiv().find('#test-empty-attributes p:eq(0)').selectorator().generate(), '#test-empty-attributes > p:eq(0)'
+    equal fdiv().find('#test-empty-attributes p:eq(1)').selectorator().generate(), '#test-empty-attributes > p:eq(1)'
 
   test 'all elements', ->
     fdiv().find("*").each ->

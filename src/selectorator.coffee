@@ -108,7 +108,7 @@
     getIdSelector: (tagName = no)->
       tagName = if tagName then @getProperTagName() else ''
       id = @element.attr 'id'
-      if typeof id is "string" && !contains(id, @getIgnore('id'))
+      if typeof id is "string" && !contains(id, @getIgnore('id')) && id isnt ''
         ["#{tagName}##{escapeSelector(id)}"]
       else null
 
