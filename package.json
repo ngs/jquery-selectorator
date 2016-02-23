@@ -8,6 +8,7 @@
   },
   "description": "jQuery plugin that returns simplest selector of elements.",
   "homepage": "https://github.com/ngs/jquery-selectorator",
+  "main": "dist/selectorator.js",
   "maintainers": [
     {
       "name": "Atsushi Nagase",
