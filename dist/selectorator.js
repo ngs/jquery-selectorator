@@ -1,6 +1,6 @@
-/*! jQuery Selectorator - v0.1.5 - 2015-04-10
+/*! jQuery Selectorator - v0.1.5 - 2016-07-06
 * https://github.com/ngs/jquery-selectorator
-* Copyright (c) 2015 Atsushi Nagase; Licensed MIT */
+* Copyright (c) 2016 Atsushi Nagase; Licensed MIT */
 (function() {
   (function($) {
     var Selectorator, clean, contains, escapeSelector, extend, inArray, map, unique;
@@ -52,7 +52,7 @@
       };
 
       Selectorator.prototype.hasParent = function() {
-        return this.element && 0 < this.element.parent().size();
+        return this.element && 0 < this.element.parent().length;
       };
 
       Selectorator.prototype.isElement = function() {
@@ -70,12 +70,12 @@
           isFirst = false;
         }
         element = this.query(selector);
-        if (single && 1 < element.size() || !single && 0 === element.size()) {
+        if (single && 1 < element.length || !single && 0 === element.length) {
           if (parentSelector && selector.indexOf(':') === -1) {
             delimiter = isFirst ? ' > ' : ' ';
             selector = parentSelector + delimiter + selector;
             element = this.query(selector);
-            if (single && 1 < element.size() || !single && 0 === element.size()) {
+            if (single && 1 < element.length || !single && 0 === element.length) {
               return null;
             }
           } else {
