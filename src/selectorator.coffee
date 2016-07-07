@@ -40,7 +40,7 @@
       if @element[0] then @element[0].tagName.toLowerCase() else null
 
     hasParent: ->
-      @element && 0 < @element.parent().size()
+      @element && 0 < @element.parent().length
 
     isElement: ->
       node = @element[0]
@@ -48,12 +48,12 @@
 
     validate: (selector, parentSelector, single = yes, isFirst = no)->
       element = @query selector
-      if single && 1 < element.size() || !single && 0 == element.size()
+      if single && 1 < element.length || !single && 0 == element.length
         if parentSelector && selector.indexOf(':') == -1
           delimiter = if isFirst then ' > ' else ' '
           selector = parentSelector + delimiter + selector
           element = @query selector
-          return null if single && 1 < element.size() || !single && 0 == element.size()
+          return null if single && 1 < element.length || !single && 0 == element.length
         else return null
       if contains(@element[0], element.get()) then selector else null
 
